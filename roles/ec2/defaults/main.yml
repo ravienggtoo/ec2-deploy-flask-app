@@ -1,0 +1,19 @@
+---
+# defaults file for ec2
+
+####App Variables
+app_name: "sample-app"
+
+
+####AWS Specific Varibles
+aws_region: "eu-west-2"
+vpc_id: "vpc-e750818e"
+vpc_subnet_id: "subnet-7fb77204"
+ec2_instance_type: "t2.micro"
+ec2_instance_image: "ami-6b3fd60c"
+ec2_assign_public_ip: yes
+ec2_instance_count: 1
+ec2_instance_key_pair: "devops-london"
+aws_access_key: "changeme"
+aws_secret_key: "changeme"
+ec2_user: "ubuntu"

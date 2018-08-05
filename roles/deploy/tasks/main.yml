@@ -1,0 +1,42 @@
+---
+# tasks file for deploy
+
+- name: Create Config Directory for Nginx
+  file: state=directory path="{{ data_path }}/nginx/conf.d" owner=root group=root mode=0755
+
+- name: Run apt-get update
+  apt: update_cache=yes
+
+- name: Install and ensure packages required
+  apt: pkg={{ item }} state=present
+  sudo: true
+  with_items:
+    - "{{ packages }}"
+
+- name: Install docker-py for Ansible
+  pip:
+    name: docker-py
+
+- name: Configuring Nginx Config File
+  template: src=default.conf.j2 dest={{ data_path }}/nginx/conf.d/default.conf 
+
+- name: Running Nginx Container
+  docker_container:
+    name: nginx
+    image: nginx:latest
+    state: started
+    ports:
+      - "{{ nginx_port }}:80"
+    volumes:
+      - "{{ data_path }}/nginx/conf.d:/etc/nginx/conf.d"
+
+- name: Running Application container
+  docker_container:
+    name: app
+    image: ravienggtoo/moo-app:latest
+    state: started
+    ports:
+      - "{{ app_port }}:5000" 
+
+- name: Executing Curl Command
+  command: curl http://localhost

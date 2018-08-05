@@ -1,0 +1,9 @@
+---
+- hosts: ec2
+  sudo: yes
+  remote_user: "{{ ec2_user }}"
+  gather_facts: True
+  roles:
+    - { role: deploy,
+        tags: ['deploy','deployment'] }
+

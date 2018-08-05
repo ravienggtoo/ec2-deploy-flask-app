@@ -1,0 +1,10 @@
+---
+# defaults file for deploy
+
+ec2_user: "ubuntu"
+nginx_port: 80
+app_port: 5000
+packages:
+  - docker.io
+  - python-pip
+data_path: "/opt/docker-volumes"

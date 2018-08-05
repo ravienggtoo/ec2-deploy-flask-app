@@ -1,0 +1,3 @@
+---
+- include: playbooks/ec2.yml
+- include: playbooks/deploy.yml
